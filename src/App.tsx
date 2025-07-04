@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import Zelda from "./Zelda"
+import ZeldaCopy from "./Zelda copy"
 
-function App() {
+export default function () {
+ 
 
   return (
     <>
+    <Zelda/>
+    <ZeldaCopy/>
     </>
   )
 }
 
-export default App
+

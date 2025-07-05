@@ -1,16 +1,13 @@
 import {useEffect, useState} from "react"
 import api from "../services/api"
-
-function pickUrl(){
-  return (window.location.href).split("/")[4]
-}
+import { useParams } from "react-router-dom";
 
 export default function () {
   const [Game, setGame] = useState();
+  const {id} = useParams();
 
 
   useEffect(()=>{
-    const id = pickUrl();
     api
     .get(`/games/${id}`)
     .then((response)=>{

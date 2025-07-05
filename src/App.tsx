@@ -1,12 +1,18 @@
-import Games from "./Pages/Games"
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Games from "./Pages/Game"
+import LP from "./Pages/Lp"
+import NotFounding from "./Pages/NotFounding"
 
+const router = createBrowserRouter([
+  {path:"/", element:<LP/>},
+  {path:"/games/:id", element:<Games/>},
+  {path:"*",element:<NotFounding/>}
+])
 
 export default function () {
- 
-
   return (
     <>
-    <Games/>
+    <RouterProvider router={router}/>
     </>
   )
 }

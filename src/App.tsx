@@ -1,13 +1,12 @@
-import Zelda from "./Zelda"
-import ZeldaCopy from "./Zelda copy"
+import Games from "./Pages/Games"
+
 
 export default function () {
  
 
   return (
     <>
-    <Zelda/>
-    <ZeldaCopy/>
+    <Games/>
     </>
   )
 }

@@ -3,7 +3,7 @@ import api from "../services/api"
 import { useParams } from "react-router-dom";
 
 export default function () {
-  const [Game, setGame] = useState();
+  const [Game, setGame] = useState({name: '', id: '', description: '', developer: '', publisher: '', released_date: ''});
   const {id} = useParams();
 
 
@@ -12,6 +12,7 @@ export default function () {
     .get(`/games/${id}`)
     .then((response)=>{
       setGame(response.data.data);
+      console.log(response.data.data)
     })
     .catch((err)=>{
       console.error("ops erros"+err)
@@ -19,7 +20,7 @@ export default function () {
   },[])
 /*
 {
-    "id": "5f6ce9d805615a85623ec2bf"
+    {name: 'The Legend of Zelda', description: 'The Legend of Zelda is the first installment of th…nown as The Hyrule Fantasy: The Legend of Zelda. ', developer: 'Nintendo R&D 4', publisher: 'Nintendo', released_date: ' February 21, 1986', …}
 }
 */
   return (

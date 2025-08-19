@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import * as S from "./RelStyle"
 import api from "../services/api";
-import { Link } from "react-router-dom";
 
 export default function Release() {
   const [Games, setGames] = useState([
@@ -8,20 +8,23 @@ export default function Release() {
 ]);
 
   useEffect(() => {
-    api.get("games?limit=10")
+    api.get("games?limit=6")
       .then((response) => setGames(response.data.data))
       .catch((err) => console.error("ops erro " + err));
   }, []);
 
   return (
-    <ul>
+    <>
+    <S.title>Realease list</S.title>
+    <S.list>
       {Games.map((game) => (
-        <li key={game.id}>
-          <Link to={`/games/${game?.id}`}>
+        <S.card key={game.id}>
+          <S.link to={`/games/${game?.id}`} >
             {game?.name}
-          </Link>
-        </li>
+          </S.link>
+        </S.card>
       ))}
-    </ul>
+    </S.list>
+    </>
   );
 }

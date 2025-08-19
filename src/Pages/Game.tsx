@@ -1,6 +1,7 @@
+import { useParams } from "react-router-dom";
 import {useEffect, useState} from "react"
 import api from "../services/api"
-import { useParams } from "react-router-dom";
+import Release from "../Components/ReleaseLis.tsx";
 
 export default function () {
   const [Game, setGame] = useState({name: '', id: '', description: '', developer: '', publisher: '', released_date: ''});
@@ -17,13 +18,15 @@ export default function () {
     .catch((err)=>{
       console.error("ops erros"+err)
     })
-  },[])
+
+  },[id])
 /*
 {
     {name: 'The Legend of Zelda', description: 'The Legend of Zelda is the first installment of th…nown as The Hyrule Fantasy: The Legend of Zelda. ', developer: 'Nintendo R&D 4', publisher: 'Nintendo', released_date: ' February 21, 1986', …}
 }
 */
   return (
+    <>
     <div className="App">
       <p>Game title: {Game?.name}</p>
       <p>Developer: {Game?.developer}</p>
@@ -31,5 +34,7 @@ export default function () {
       <p>Desc: {Game?.description}</p>
       <p>Release: {Game?.released_date}</p>
     </div>
+    <Release/>
+    </>
   )
 }

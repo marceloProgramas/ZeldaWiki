@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import {useEffect, useState} from "react"
 import api from "../services/api"
-import Release from "../Components/ReleaseLis.tsx";
+import Release from "../Components/Release/ReleaseLis.tsx";
 
 export default function () {
   const [Game, setGame] = useState({name: '', id: '', description: '', developer: '', publisher: '', released_date: ''});
@@ -13,7 +13,6 @@ export default function () {
     .get(`/games/${id}`)
     .then((response)=>{
       setGame(response.data.data);
-      console.log(response.data.data)
     })
     .catch((err)=>{
       console.error("ops erros"+err)

@@ -1,11 +1,15 @@
-import Release from "../Components/ReleaseLis.tsx";
+
+import List from "../Components/List/List.tsx"
 
 
 export default function LP() {
 
   return (
     <>
-    <Release/>
+    <List type="games"/>
+    <List type="characters"/>
+    <List type="bosses"/>
+    <List type="dungeons"/>
     </>
   );
 }

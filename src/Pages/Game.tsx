@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import {useEffect, useState} from "react"
 import api from "../services/api"
-import Release from "../Components/Release/ReleaseLis.tsx";
+import List from "../Components/List/List.tsx";
 
 export default function () {
   const [Game, setGame] = useState({name: '', id: '', description: '', developer: '', publisher: '', released_date: ''});
@@ -33,7 +33,7 @@ export default function () {
       <p>Desc: {Game?.description}</p>
       <p>Release: {Game?.released_date}</p>
     </div>
-    <Release/>
+    <List type="games"/>
     </>
   )
 }

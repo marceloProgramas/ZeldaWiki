@@ -18,7 +18,8 @@ export const card = styled.li`
     padding-top: 10rem;
     background-color: #ADD8E6;
 
-    
+    min-width: 8rem;
+
     max-width: 12rem;
 `
 

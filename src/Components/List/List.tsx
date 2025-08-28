@@ -3,13 +3,13 @@ import * as S from "./ListSt"
 import api from "../../services/api";
 
 export default function List({type}:{type:string}) {
-  const [Games, setGames] = useState([
+  const [Things, setThings] = useState([
     {name: '', id: '', description: '', developer: '', publisher: '', released_date: ''}
 ]);
 
   useEffect(() => {
     api.get(`${type}?limit=6`)
-      .then((response) => setGames(response.data.data))
+      .then((response) => setThings(response.data.data))
       .catch((err) => console.error("ops erro " + err));
   }, [type]);
 
@@ -17,10 +17,10 @@ export default function List({type}:{type:string}) {
     <>
     <S.title>{type} list</S.title>
     <S.list>
-      {Games.map((game) => (
-        <S.card key={game.id}>
-          <S.link to={`/${type}/${game?.id}`} >
-            {game?.name}
+      {Things.map((thing) => (
+        <S.card key={thing.id}>
+          <S.link to={`/${type}/${thing?.id}`} >
+            {thing?.name}
           </S.link>
         </S.card>
       ))}

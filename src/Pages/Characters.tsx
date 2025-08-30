@@ -3,15 +3,20 @@ import {useEffect, useState} from "react"
 import api from "../services/api"
 import List from "../Components/List/List";
 
+type RouteParams ={
+    type: string;
+    id:string;
+}
+
 async function getName(id:string){
     return new Promise((resolve)=>{
-
+        resolve(id)
     })
 }
 
 export default function(){
-    const [type,setType] = useState()
-    const Params = useParams();
+    const [type,setType] = useState(null)
+    const Params = useParams<RouteParams>();
 
 
 useEffect(()=>{
@@ -33,9 +38,10 @@ useEffect(()=>{
             {type?(
                 <>
                 {
-                    Object.entries(type).map(([key,value])=>{
-                        if(key!="id"&&value)
-                        return (typeof value === "object") ? (
+                    Object.entries(type)
+                    .filter(([key, value]) => key !== "id" && value)
+                    .map(([key,value])=>{
+                        return (Array.isArray(value)) ? (
                             <div key={key}>
                                 <p>{key}:</p>
                                 {value.map((link, i) => {
@@ -45,11 +51,11 @@ useEffect(()=>{
                                 )}
                             </div>
                         ) : (
-                            <p key={key}>{key}: {value}</p>
+                            <p key={key}>{key}<>:</> {String(value)}</p>
                         );
                     })
                 }
-                <List type={Params.type}/>
+                {Params.type && <List type={Params.type} />}
                 </>
             ):(
                 <p>Carregando....</p>

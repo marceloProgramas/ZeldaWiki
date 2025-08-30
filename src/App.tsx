@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Games from "./Pages/Game"
 import Characters from './Pages/Characters'
 import LP from "./LP/LP"
 import NotFounding from "./Pages/NotFounding"

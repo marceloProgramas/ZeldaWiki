@@ -19,7 +19,7 @@ export default function List({type}:{type:string}) {
     <S.list>
       {Things.map((thing) => (
         <S.card key={thing.id}>
-          <S.link to={`/${type}/${thing?.id}`} >
+          <S.link to={`/${type}/Post/${thing?.id}`} >
             {thing?.name}
           </S.link>
         </S.card>

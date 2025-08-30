@@ -17,7 +17,6 @@ export default function () {
     .catch((err)=>{
       console.error("ops erros"+err)
     })
-
   },[id])
 /*
 {

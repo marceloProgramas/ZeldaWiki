@@ -6,7 +6,7 @@ import NotFounding from "./Pages/NotFounding"
 
 const router = createBrowserRouter([
   {path:"/", element:<LP/>},
-  {path:"/games/Post/:id", element:<Games/>},
+  //{path:"/games/Post/:id", element:<Games/>},
   {path:"/:type/Post/:id", element:<Characters/>},
   {path:"*",element:<NotFounding/>}
 ])

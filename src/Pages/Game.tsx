@@ -18,11 +18,7 @@ export default function () {
       console.error("ops erros"+err)
     })
   },[id])
-/*
-{
-    {name: 'The Legend of Zelda', description: 'The Legend of Zelda is the first installment of th…nown as The Hyrule Fantasy: The Legend of Zelda. ', developer: 'Nintendo R&D 4', publisher: 'Nintendo', released_date: ' February 21, 1986', …}
-}
-*/
+
   return (
     <>
     <div className="App">

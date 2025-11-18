@@ -8,14 +8,20 @@ type RouteParams ={
     id:string;
 }
 
-async function getName(id:string){
-    return new Promise((resolve)=>{
-        resolve(id)
-    })
+async function getName(type: string, id: string) {
+  try {
+    const response = await api.get(`/${type}/${id}`);
+    return response.data.data.name; 
+  } catch (error) {
+    console.error("Error fetching name:", error);
+    throw error;
+  }
 }
+
 
 export default function(){
     const [type,setType] = useState(null)
+    const [LinkName, setLinkName] = useState(null)
     const Params = useParams<RouteParams>();
 
 
@@ -28,7 +34,6 @@ useEffect(()=>{
     .catch((err)=>{
         console.error("ops erros"+err)
     })
-    console.log(getName("https://zelda.fanapis.com/api/games/5f6ce9d805615a85623ec2c0"))
 },[Params.type, Params.id])
 
 
@@ -45,8 +50,9 @@ useEffect(()=>{
                             <div key={key}>
                                 <p>{key}:</p>
                                 {value.map((link, i) => {
-                                    console.log(link.split("/"))
-                                    return(<Link to={`/games/Post/${link.split("/")[5]}`} key={i}>{link}<br/></Link>)
+                                    let LinkArray = link.split("/");
+                                    getName(LinkArray[4],LinkArray[5]).then((res)=>null)
+                                    return(<Link to={`/${LinkArray[4]}/Post/${LinkArray[5]}`} key={i}>{link}<br/></Link>)
                                 }
                                 )}
                             </div>

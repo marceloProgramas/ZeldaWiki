@@ -1,12 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Characters from './Pages/Characters'
+import Post from './Pages/posts'
 import LP from "./LP/LP"
 import NotFounding from "./Pages/NotFounding"
 
 const router = createBrowserRouter([
   {path:"/", element:<LP/>},
-  //{path:"/games/Post/:id", element:<Games/>},
-  {path:"/:type/Post/:id", element:<Characters/>},
+  {path:"/:type/Post/:id", element:<Post/>},
   {path:"*",element:<NotFounding/>}
 ])
 

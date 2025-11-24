@@ -18,23 +18,55 @@ async function getName(type: string, id: string) {
   }
 }
 
+async function MakeList(list: string[]) {
+  const results = await Promise.all(
+    list.map(async (link) => {
+        const LinkArray = link.split("/");
+        console.log(LinkArray[4]+"/"+LinkArray[5])
+        return [await getName(LinkArray[4], LinkArray[5]), (LinkArray[4]+"/Post/"+LinkArray[5])];
+    })
+  );
+
+  return results;
+}
 
 export default function(){
-    const [type,setType] = useState(null)
-    const [LinkName, setLinkName] = useState(null)
+    const [type,setType] = useState<any[][]>([])
     const Params = useParams<RouteParams>();
 
 
-useEffect(()=>{
-    api
-    .get(`/${Params.type}/${Params.id}`) 
-    .then((response)=>{
-        setType(response.data.data)
-    })       
-    .catch((err)=>{
-        console.error("ops erros"+err)
-    })
-},[Params.type, Params.id])
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const response = await api.get(`/${Params.type}/${Params.id}`);
+      let resp = response.data.data;
+
+      const processed = await Promise.all(
+        Object.entries(resp)
+          .filter(([key, value]) => key !== "id" && value && value.length > 0 )
+          .map(async ([key, value]) => {
+
+            console.log();
+
+            if (Array.isArray(value)) {
+              const result = await MakeList(value);
+              return [key, result]; 
+            }
+
+            return [key, value];
+          })
+      );
+
+      setType(processed);
+      console.log(processed);
+
+    } catch (err) {
+      console.error("Erro:", err);
+    }
+  }
+
+  fetchData();
+}, [Params.type, Params.id]);
 
 
 
@@ -43,18 +75,16 @@ useEffect(()=>{
             {type?(
                 <>
                 {
-                    Object.entries(type)
-                    .filter(([key, value]) => key !== "id" && value)
-                    .map(([key,value])=>{
+                    type.map(([key, value])=>{
                         return (Array.isArray(value)) ? (
                             <div key={key}>
                                 <p>{key}:</p>
-                                {value.map((link, i) => {
-                                    let LinkArray = link.split("/");
-                                    getName(LinkArray[4],LinkArray[5]).then((res)=>null)
-                                    return(<Link to={`/${LinkArray[4]}/Post/${LinkArray[5]}`} key={i}>{link}<br/></Link>)
+                                {
+                                value.map(([name, link]) => {
+                                   
+                                    return(<Link to={`/${link}`} key={link}>{name}<br/></Link>)
+                                })
                                 }
-                                )}
                             </div>
                         ) : (
                             <p key={key}>{key}<>:</> {String(value)}</p>

@@ -1,7 +1,7 @@
 import {useParams,Link} from "react-router-dom"
 import {useEffect, useState} from "react"
 import api from "../services/api"
-import List from "../Components/List/List";
+import List from "../Components/List/List"; 
 
 type RouteParams ={
     type: string;
@@ -22,7 +22,6 @@ async function MakeList(list: string[]) {
   const results = await Promise.all(
     list.map(async (link) => {
         const LinkArray = link.split("/");
-        console.log(LinkArray[4]+"/"+LinkArray[5])
         return [await getName(LinkArray[4], LinkArray[5]), (LinkArray[4]+"/Post/"+LinkArray[5])];
     })
   );
@@ -39,15 +38,12 @@ useEffect(() => {
   async function fetchData() {
     try {
       const response = await api.get(`/${Params.type}/${Params.id}`);
-      let resp = response.data.data;
+      let resp:{[key: string]: string | string[];} = response.data.data;
 
       const processed = await Promise.all(
         Object.entries(resp)
-          .filter(([key, value]) => key !== "id" && value && value.length > 0 )
+          .filter(([key, value]) => key !== "id" && value && value.length > 0)
           .map(async ([key, value]) => {
-
-            console.log();
-
             if (Array.isArray(value)) {
               const result = await MakeList(value);
               return [key, result]; 
@@ -56,10 +52,8 @@ useEffect(() => {
             return [key, value];
           })
       );
-
+      console.log(processed)
       setType(processed);
-      console.log(processed);
-
     } catch (err) {
       console.error("Erro:", err);
     }
